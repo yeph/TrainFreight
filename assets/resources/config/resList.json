@@ -1,0 +1,800 @@
+[
+  {
+    "id" : 9001,
+    "type" : "json",
+    "name" : "config",
+    "url" : "config/"
+  },
+  {
+    "id" : 9002,
+    "type" : "json",
+    "name" : "resList",
+    "url" : "config/"
+  },
+  {
+    "id" : 9003,
+    "type" : "bmfont",
+    "name" : "font-lyx-ch",
+    "url" : "font/"
+  },
+  {
+    "id" : 9005,
+    "type" : "mp3",
+    "name" : "bgm",
+    "url" : "music/"
+  },
+  {
+    "id" : 9006,
+    "type" : "mp3",
+    "name" : "correct",
+    "url" : "music/"
+  },
+  {
+    "id" : 9007,
+    "type" : "mp3",
+    "name" : "guide0",
+    "url" : "music/"
+  },
+  {
+    "id" : 9008,
+    "type" : "mp3",
+    "name" : "pass",
+    "url" : "music/"
+  },
+  {
+    "id" : 9009,
+    "type" : "mp3",
+    "name" : "readyend",
+    "url" : "music/"
+  },
+  {
+    "id" : 9010,
+    "type" : "mp3",
+    "name" : "readystart",
+    "url" : "music/"
+  },
+  {
+    "id" : 9011,
+    "type" : "mp3",
+    "name" : "tip",
+    "url" : "music/"
+  },
+  {
+    "id" : 9012,
+    "type" : "mp3",
+    "name" : "tipBlue",
+    "url" : "music/"
+  },
+  {
+    "id" : 9013,
+    "type" : "mp3",
+    "name" : "tipRed",
+    "url" : "music/"
+  },
+  {
+    "id" : 9014,
+    "type" : "mp3",
+    "name" : "wboom",
+    "url" : "music/"
+  },
+  {
+    "id" : 9015,
+    "type" : "mp3",
+    "name" : "wrong",
+    "url" : "music/"
+  },
+  {
+    "id" : 9016,
+    "type" : "mp3",
+    "name" : "wupingfangxia",
+    "url" : "music/"
+  },
+  {
+    "id" : 9017,
+    "type" : "mp3",
+    "name" : "wupingzhuangshang",
+    "url" : "music/"
+  },
+  {
+    "id" : 9018,
+    "type" : "mp3",
+    "name" : "wuwuwu",
+    "url" : "music/"
+  },
+  {
+    "id" : 9019,
+    "type" : "bundle",
+    "name" : "gameframe",
+    "url" : "/"
+  },
+  {
+    "id" : 9020,
+    "type" : "prefab",
+    "name" : "Clock",
+    "url" : "gameframe:prefab/common/"
+  },
+  {
+    "id" : 9021,
+    "type" : "prefab",
+    "name" : "ComTimeDown",
+    "url" : "gameframe:prefab/common/"
+  },
+  {
+    "id" : 9022,
+    "type" : "prefab",
+    "name" : "GameName",
+    "url" : "gameframe:prefab/common/"
+  },
+  {
+    "id" : 9023,
+    "type" : "prefab",
+    "name" : "GameSetting",
+    "url" : "gameframe:prefab/common/"
+  },
+  {
+    "id" : 9024,
+    "type" : "prefab",
+    "name" : "Loading",
+    "url" : "gameframe:prefab/common/"
+  },
+  {
+    "id" : 9025,
+    "type" : "prefab",
+    "name" : "NetRequest",
+    "url" : "gameframe:prefab/common/"
+  },
+  {
+    "id" : 9026,
+    "type" : "prefab",
+    "name" : "ResultDialog",
+    "url" : "gameframe:prefab/common/"
+  },
+  {
+    "id" : 9027,
+    "type" : "prefab",
+    "name" : "Round",
+    "url" : "gameframe:prefab/common/"
+  },
+  {
+    "id" : 9028,
+    "type" : "prefab",
+    "name" : "Title",
+    "url" : "gameframe:prefab/common/"
+  },
+  {
+    "id" : 9029,
+    "type" : "prefab",
+    "name" : "Transition",
+    "url" : "gameframe:prefab/common/"
+  },
+  {
+    "id" : 9030,
+    "type" : "prefab",
+    "name" : "Frame",
+    "url" : "gameframe:prefab/"
+  },
+  {
+    "id" : 9031,
+    "type" : "atlas",
+    "name" : "ui",
+    "url" : "gameframe:texture/"
+  },
+  {
+    "id" : 9033,
+    "type" : "bundle",
+    "name" : "subgame",
+    "url" : "/"
+  },
+  {
+    "id" : 9034,
+    "type" : "frame",
+    "name" : "boom_0",
+    "url" : "subgame:boom/"
+  },
+  {
+    "id" : 9035,
+    "type" : "frame",
+    "name" : "boom_1",
+    "url" : "subgame:boom/"
+  },
+  {
+    "id" : 9036,
+    "type" : "frame",
+    "name" : "boom_2",
+    "url" : "subgame:boom/"
+  },
+  {
+    "id" : 9037,
+    "type" : "frame",
+    "name" : "boom_3",
+    "url" : "subgame:boom/"
+  },
+  {
+    "id" : 9038,
+    "type" : "frame",
+    "name" : "boom_4",
+    "url" : "subgame:boom/"
+  },
+  {
+    "id" : 9039,
+    "type" : "frame",
+    "name" : "boom_5",
+    "url" : "subgame:boom/"
+  },
+  {
+    "id" : 9040,
+    "type" : "prefab",
+    "name" : "Boom",
+    "url" : "subgame:prefab/component/"
+  },
+  {
+    "id" : 9041,
+    "type" : "prefab",
+    "name" : "confinger",
+    "url" : "subgame:prefab/component/"
+  },
+  {
+    "id" : 9042,
+    "type" : "prefab",
+    "name" : "Firework",
+    "url" : "subgame:prefab/component/"
+  },
+  {
+    "id" : 9043,
+    "type" : "prefab",
+    "name" : "GeneraItem",
+    "url" : "subgame:prefab/component/"
+  },
+  {
+    "id" : 9044,
+    "type" : "prefab",
+    "name" : "ScoreProgress",
+    "url" : "subgame:prefab/component/"
+  },
+  {
+    "id" : 9045,
+    "type" : "prefab",
+    "name" : "Tips",
+    "url" : "subgame:prefab/component/"
+  },
+  {
+    "id" : 9046,
+    "type" : "prefab",
+    "name" : "Game",
+    "url" : "subgame:prefab/"
+  },
+  {
+    "id" : 9047,
+    "type" : "prefab",
+    "name" : "GameLogic",
+    "url" : "subgame:prefab/"
+  },
+  {
+    "id" : 9048,
+    "type" : "prefab",
+    "name" : "goods_0",
+    "url" : "subgame:prefab/goods/"
+  },
+  {
+    "id" : 9049,
+    "type" : "prefab",
+    "name" : "goods_1",
+    "url" : "subgame:prefab/goods/"
+  },
+  {
+    "id" : 9050,
+    "type" : "prefab",
+    "name" : "goods_2",
+    "url" : "subgame:prefab/goods/"
+  },
+  {
+    "id" : 9051,
+    "type" : "prefab",
+    "name" : "goods_3",
+    "url" : "subgame:prefab/goods/"
+  },
+  {
+    "id" : 9052,
+    "type" : "prefab",
+    "name" : "goods_4",
+    "url" : "subgame:prefab/goods/"
+  },
+  {
+    "id" : 9053,
+    "type" : "prefab",
+    "name" : "goods_5",
+    "url" : "subgame:prefab/goods/"
+  },
+  {
+    "id" : 9054,
+    "type" : "prefab",
+    "name" : "goods_6",
+    "url" : "subgame:prefab/goods/"
+  },
+  {
+    "id" : 9055,
+    "type" : "prefab",
+    "name" : "goods_7",
+    "url" : "subgame:prefab/goods/"
+  },
+  {
+    "id" : 9056,
+    "type" : "prefab",
+    "name" : "Guide",
+    "url" : "subgame:prefab/"
+  },
+  {
+    "id" : 9057,
+    "type" : "prefab",
+    "name" : "Road",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9058,
+    "type" : "prefab",
+    "name" : "RoadChange_0",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9059,
+    "type" : "prefab",
+    "name" : "RoadChange_1",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9060,
+    "type" : "prefab",
+    "name" : "RoadChange_2",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9061,
+    "type" : "prefab",
+    "name" : "RoadChange_3",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9062,
+    "type" : "prefab",
+    "name" : "RoadChange_4",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9063,
+    "type" : "prefab",
+    "name" : "RoadChange_5",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9064,
+    "type" : "prefab",
+    "name" : "RoadChange_6",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9065,
+    "type" : "prefab",
+    "name" : "RoadChange_7",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9066,
+    "type" : "prefab",
+    "name" : "RoadChange_8",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9067,
+    "type" : "prefab",
+    "name" : "TrainHead_0",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9068,
+    "type" : "prefab",
+    "name" : "TrainHead_1",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9069,
+    "type" : "prefab",
+    "name" : "TrainHead_2",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9070,
+    "type" : "prefab",
+    "name" : "TrainHead_3",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9071,
+    "type" : "prefab",
+    "name" : "TrainHead_4",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9072,
+    "type" : "prefab",
+    "name" : "TrainHead_5",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9073,
+    "type" : "prefab",
+    "name" : "TrainHead_6",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9074,
+    "type" : "prefab",
+    "name" : "TrainHead_7",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9075,
+    "type" : "prefab",
+    "name" : "TrainHead_8",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9076,
+    "type" : "prefab",
+    "name" : "xiang_1",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9077,
+    "type" : "prefab",
+    "name" : "xiang_2",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9078,
+    "type" : "prefab",
+    "name" : "xiang_3",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9079,
+    "type" : "prefab",
+    "name" : "xiang_4",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9080,
+    "type" : "prefab",
+    "name" : "xiang_5",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9081,
+    "type" : "prefab",
+    "name" : "xiang_6",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9082,
+    "type" : "prefab",
+    "name" : "xiang_7",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9083,
+    "type" : "prefab",
+    "name" : "xiang_8",
+    "url" : "subgame:prefab/mapPrefab/"
+  },
+  {
+    "id" : 9084,
+    "type" : "frame",
+    "name" : "barbg1",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9085,
+    "type" : "frame",
+    "name" : "barbg2",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9086,
+    "type" : "frame",
+    "name" : "bg",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9087,
+    "type" : "frame",
+    "name" : "bg_small",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9088,
+    "type" : "frame",
+    "name" : "blueMark",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9089,
+    "type" : "frame",
+    "name" : "blue_che",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9090,
+    "type" : "frame",
+    "name" : "box1",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9091,
+    "type" : "frame",
+    "name" : "box_bule",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9092,
+    "type" : "frame",
+    "name" : "box_red",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9093,
+    "type" : "frame",
+    "name" : "button_yellow",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9094,
+    "type" : "frame",
+    "name" : "car",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9095,
+    "type" : "frame",
+    "name" : "house_bule",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9096,
+    "type" : "frame",
+    "name" : "house_red",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9097,
+    "type" : "frame",
+    "name" : "icon_time",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9098,
+    "type" : "frame",
+    "name" : "map_1",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9099,
+    "type" : "frame",
+    "name" : "map_10",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9100,
+    "type" : "frame",
+    "name" : "map_11",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9101,
+    "type" : "frame",
+    "name" : "map_12",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9102,
+    "type" : "frame",
+    "name" : "map_13",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9103,
+    "type" : "frame",
+    "name" : "map_14",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9104,
+    "type" : "frame",
+    "name" : "map_15",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9105,
+    "type" : "frame",
+    "name" : "map_16",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9106,
+    "type" : "frame",
+    "name" : "map_17",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9107,
+    "type" : "frame",
+    "name" : "map_18",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9108,
+    "type" : "frame",
+    "name" : "map_19",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9109,
+    "type" : "frame",
+    "name" : "map_2",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9110,
+    "type" : "frame",
+    "name" : "map_20",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9111,
+    "type" : "frame",
+    "name" : "map_21",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9112,
+    "type" : "frame",
+    "name" : "map_3",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9113,
+    "type" : "frame",
+    "name" : "map_4",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9114,
+    "type" : "frame",
+    "name" : "map_5",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9115,
+    "type" : "frame",
+    "name" : "map_6",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9116,
+    "type" : "frame",
+    "name" : "map_7",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9117,
+    "type" : "frame",
+    "name" : "map_8",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9118,
+    "type" : "frame",
+    "name" : "map_9",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9119,
+    "type" : "frame",
+    "name" : "pic_1",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9120,
+    "type" : "frame",
+    "name" : "pic_2",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9121,
+    "type" : "frame",
+    "name" : "pic_3",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9122,
+    "type" : "frame",
+    "name" : "point",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9123,
+    "type" : "frame",
+    "name" : "redMark",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9124,
+    "type" : "frame",
+    "name" : "red_che",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9125,
+    "type" : "frame",
+    "name" : "shouzhi",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9126,
+    "type" : "frame",
+    "name" : "time",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9127,
+    "type" : "frame",
+    "name" : "time_box",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9128,
+    "type" : "frame",
+    "name" : "train_bule_carriage",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9129,
+    "type" : "frame",
+    "name" : "train_bule_carriage1",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9130,
+    "type" : "frame",
+    "name" : "train_bule_headstock",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9131,
+    "type" : "frame",
+    "name" : "train_bule_headstock1",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9132,
+    "type" : "frame",
+    "name" : "train_red_carriage",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9133,
+    "type" : "frame",
+    "name" : "train_red_carriage1",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9134,
+    "type" : "frame",
+    "name" : "train_red_headstock",
+    "url" : "subgame:texture/"
+  },
+  {
+    "id" : 9135,
+    "type" : "frame",
+    "name" : "train_red_headstock1",
+    "url" : "subgame:texture/"
+  }
+]
