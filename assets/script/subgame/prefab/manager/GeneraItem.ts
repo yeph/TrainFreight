@@ -30,6 +30,8 @@ export default class GeneraItem extends BaseObject {
     public RoadChangeLayout: cc.Node;
     public TrainLayout: cc.Node;
     public HouseLayout: cc.Node;
+    public ShowLevel: cc.Label;
+    public MaxLevel: cc.Label;
 
     public redTrainBox = [];
     public blueTrainBox = [];
@@ -46,6 +48,10 @@ export default class GeneraItem extends BaseObject {
         this.RoadChangeLayout = this.findNode("RoadChangeLayout");
         this.TrainLayout = this.findNode("TrainLayout");
         this.HouseLayout = this.findNode("HouseLayout");
+        this.ShowLevel = this.findNode("showLevel").getComponent(cc.Label);
+        this.MaxLevel = this.findNode("maxLevel").getComponent(cc.Label);
+        this.ShowLevel.string = "当前关卡：" + cfg.diff;
+        this.MaxLevel.string = "Max:" + cfg.maxLevel;
         gameManager.blueFullFoods = false;
         gameManager.redFullFoods = false;
         EventMng.on("showRedGoods", this.showRedGoods, this);
@@ -69,6 +75,7 @@ export default class GeneraItem extends BaseObject {
     initView() {
         gameManager.speedBlue = cfg.speedBlue;
         gameManager.speedRed = cfg.speedRed;
+        this.ShowLevel.string = "当前关卡：" + cfg.diff;
         this.ScoreProgress = new ScoreProgress(() => {
             this.NextLevel();
         });
@@ -221,12 +228,14 @@ export default class GeneraItem extends BaseObject {
     public NextLevel() {
         cc.log("------------------------->>>NextLevel")
         gameManager.record(0);
-        // this.clearInfo();
-        // this.initView();
+
         gameManager.speedBlue = 0;
         gameManager.speedRed = 0;
         let comFireWork = new ComFireWork(() => {
-            EventMng.emit("gameIsOver");
+            // EventMng.emit("gameIsOver");
+            this.ScoreProgress.onDestroy();
+            this.clearInfo();
+            this.initView();
         })
         this.node.addChild(comFireWork.node);
         comFireWork.node.setPosition(0, 100);

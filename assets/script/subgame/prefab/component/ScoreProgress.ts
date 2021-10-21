@@ -51,4 +51,8 @@ export default class ScoreProgress extends BaseObject {
         this._handle.x = -this._len;
         this.node.getComponent(cc.ProgressBar).progress = 0;
     }
+
+    onDestroy() {
+        this.node.destroy();
+    }
 }
