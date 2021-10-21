@@ -1,4 +1,4 @@
-# lyx-framework-240
+# TrainFreight
 
 ## 资源结构
 * resources: 公共资源
