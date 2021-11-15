@@ -159,13 +159,21 @@ export default abstract class BaseObject {
     }
 
     protected calcDuration (tag: string): number {
+        // let currentTime: number = this._duration;
+        // let lastTime: number = this._timeFlagMap.get(tag);
+        // if (QuickTool.isNull(lastTime)) {
+        //     this.flag(tag);
+        //     return 0.0;
+        // }
+        // let durationTime: number = cc.misc.clampf(currentTime - lastTime, 0.0, INF);
+        // this.flag(tag);
+        // return durationTime;
         let currentTime: number = this._duration;
-        let lastTime: number = this._timeFlagMap.get(tag);
-        if (QuickTool.isNull(lastTime)) {
+        if (QuickTool.isNull(currentTime)) {
             this.flag(tag);
             return 0.0;
         }
-        let durationTime: number = cc.misc.clampf(currentTime - lastTime, 0.0, INF);
+        let durationTime: number = Math.floor(currentTime);
         this.flag(tag);
         return durationTime;
     }

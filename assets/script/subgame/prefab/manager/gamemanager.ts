@@ -38,9 +38,15 @@ class GameManager {
 
     public blueFullFoods: boolean = false;
 
+    public redGuideFullFoods: boolean = false;
+
+    public blueGuideFullFoods: boolean = false;
+
     public tempRedFullFoods: boolean = false;
 
     public tempBlueFullFoods: boolean = false;
+
+    public tempShow: boolean = false;
 
     public isPeng: boolean = false;
 
@@ -53,6 +59,7 @@ class GameManager {
     public isShowRed: boolean = false;
 
     public boxUrl: string = "train_bule_carriage";
+    public boxGuideUrl: string = "train_bule_carriage";
 
     public correctCombo: number = 0;
     public errorCombo: number = 0;

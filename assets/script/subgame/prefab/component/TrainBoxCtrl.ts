@@ -48,17 +48,25 @@ export default class TrainBoxCtrl extends BaseObject {
     public initBox(belongType) {
         let boxUrl = ""
         if (belongType == 1) {
-            if (gameManager.redFullFoods) {
-                boxUrl = "train_red_carriage";
-            } else {
+            if (this.isGuide) {
                 boxUrl = "train_red_carriage1";
+            } else {
+                if (gameManager.redFullFoods) {
+                    boxUrl = "train_red_carriage";
+                } else {
+                    boxUrl = "train_red_carriage1";
+                }
             }
         }
         if (belongType == 2) {
-            if (gameManager.blueFullFoods) {
-                boxUrl = "train_bule_carriage";
-            } else {
+            if (this.isGuide) {
                 boxUrl = "train_bule_carriage1";
+            } else {
+                if (gameManager.blueFullFoods) {
+                    boxUrl = "train_bule_carriage";
+                } else {
+                    boxUrl = "train_bule_carriage1";
+                }
             }
         }
         let url = "subgame:./texture/" + boxUrl;

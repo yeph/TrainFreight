@@ -30,8 +30,12 @@ export default class GeneraItem extends BaseObject {
     public RoadChangeLayout: cc.Node;
     public TrainLayout: cc.Node;
     public HouseLayout: cc.Node;
+    public RouteTips: cc.Node;
+
     public ShowLevel: cc.Label;
     public MaxLevel: cc.Label;
+
+    public hideLine;
 
     public redTrainBox = [];
     public blueTrainBox = [];
@@ -48,15 +52,19 @@ export default class GeneraItem extends BaseObject {
         this.RoadChangeLayout = this.findNode("RoadChangeLayout");
         this.TrainLayout = this.findNode("TrainLayout");
         this.HouseLayout = this.findNode("HouseLayout");
-        this.ShowLevel = this.findNode("showLevel").getComponent(cc.Label);
+        this.RouteTips = this.findNode("RouteTips");
+
+        this.ShowLevel = this.findNode("nowLevel").getComponent(cc.Label);
         this.MaxLevel = this.findNode("maxLevel").getComponent(cc.Label);
         this.ShowLevel.string = "当前关卡：" + cfg.diff;
-        this.MaxLevel.string = "Max:" + cfg.maxLevel;
+        this.MaxLevel.string = "最大关卡:" + cfg.maxLevel;
+
         gameManager.blueFullFoods = false;
         gameManager.redFullFoods = false;
         EventMng.on("showRedGoods", this.showRedGoods, this);
         EventMng.on("showBlueGoods", this.showBlueGoods, this);
         EventMng.on("showWarn", this.showWarn, this);
+        gameManager.isShowRed = cfg.showRedGoods;
     }
 
     start() {
@@ -69,6 +77,7 @@ export default class GeneraItem extends BaseObject {
         // cc.director.getCollisionManager().enabled = true;
         this.scheduleOnce(() => {
             this.initView();
+            this.flag("usedTime");
         }, 1 / 60)
     }
 
@@ -90,16 +99,19 @@ export default class GeneraItem extends BaseObject {
         this.RoadChangeLayout.setContentSize(width, height);
         this.TrainLayout.setContentSize(width, height);
         this.HouseLayout.setContentSize(width, height);
+        this.RouteTips.setContentSize(width, height);
         this.initMap();
     }
 
     public initMap() {
+        cc.log("cfg", cfg.showRedGoods)
+        gameManager.isShowRed = cfg.showRedGoods;
         this.RoadLayout.removeAllChildren(); //绿色小马路
         this.RoadChangeLayout.removeAllChildren();//弯道
         this.TrainLayout.removeAllChildren();//小火车
         this.OrnamentLayout.removeAllChildren();//资源
         this.HouseLayout.removeAllChildren();
-        gameManager.isShowRed = cfg.showRedGoods;
+        this.RouteTips.removeAllChildren();
         let info = cfg.road;
         for (let i = 0; i < info.length; i++) {
             for (let j = 0; j < info[i].length; j++) {
@@ -114,8 +126,8 @@ export default class GeneraItem extends BaseObject {
             for (let j = 0; j < changeInfo[i].length; j++) {
                 let mapId = changeInfo[i][j];
 
-                let mapChangeItme = new MapChangeItme(mapId, i, j, (data) => {
-                    this.changeRoad(data);
+                let mapChangeItme = new MapChangeItme(mapId, i, j, (data, isShow) => {
+                    this.changeRoad(data, isShow);
                 });
                 this.RoadChangeLayout.addChild(mapChangeItme.node);
             }
@@ -226,14 +238,13 @@ export default class GeneraItem extends BaseObject {
     }
 
     public NextLevel() {
-        cc.log("------------------------->>>NextLevel")
         gameManager.record(0);
-
+        // this.clearInfo();
+        // this.initView();
         gameManager.speedBlue = 0;
         gameManager.speedRed = 0;
         let comFireWork = new ComFireWork(() => {
             // EventMng.emit("gameIsOver");
-            this.ScoreProgress.onDestroy();
             this.clearInfo();
             this.initView();
         })
@@ -243,24 +254,204 @@ export default class GeneraItem extends BaseObject {
 
     }
 
-    public changeRoad(data) {
+    public changeRoad(data, isShow) {
+        this.RouteTips.removeAllChildren();
+        this.unschedule(this.hideLine);
+        this.RouteTips.opacity = 50;
         let index = data.row * cfg.roadChange[0].length + data.col;
         // cc.log("index", index)
         // cc.log("改变对应的道路节点", this.RoadLayout.children[index]);
         // cc.log("道路类型", data.roadType);
         //@ts-ignore
-        this.RoadLayout.children[index]["roadType"] = data.roadType
+        this.RoadLayout.children[index]["roadType"] = data.roadType;
+        if (!isShow) return;
+        let r = this.RoadLayout.children[index].width / 2;
+        let pos = cc.v2(this.RoadLayout.children[index].x, this.RoadLayout.children[index].y);
+        let type1 = 0;
+        let type2 = 0;
+        switch (data.roadType) {
+            case 1:
+                let row1 = data.row + 1;
+                let index1 = row1 * cfg.roadChange[0].length + data.col;
+                let col2 = data.col + 1;
+                let index2 = data.row * cfg.roadChange[0].length + col2;
+                let pos1 = cc.v2(this.RoadLayout.children[index1].x, this.RoadLayout.children[index1].y);
+                let pos2 = cc.v2(this.RoadLayout.children[index2].x, this.RoadLayout.children[index2].y);
+                type1 = this.RoadLayout.children[index1]["roadType"];
+                type2 = this.RoadLayout.children[index2]["roadType"];
+                let endPos1 = cc.v2(pos1.x, pos1.y + r + 1);
+                let endPos2 = cc.v2(pos2.x - r - 1, pos2.y);
+                if (type1 == 0) {
+                    this.drawLine(cc.v2(pos1.x, pos1.y - r), endPos1);
+                } else {
+                    this.checkType(type1, pos1, r);
+                }
+                if (type2 == 0) {
+                    this.drawLine(cc.v2(pos2.x + r, pos2.y), endPos2);
+                } else {
+                    this.checkType(type2, pos2, r);
+                }
+                this.drawArc(pos.x + r, pos.y - r, r, 0.5 * Math.PI, 1 * Math.PI, true);
+                break;
+            case 2:
+                let row3 = data.row - 1;
+                let index3 = row3 * cfg.roadChange[0].length + data.col;
+                let col3 = data.col + 1;
+                let index4 = data.row * cfg.roadChange[0].length + col3;
+                let pos3 = cc.v2(this.RoadLayout.children[index3].x, this.RoadLayout.children[index3].y);
+                let pos4 = cc.v2(this.RoadLayout.children[index4].x, this.RoadLayout.children[index4].y);
+                type1 = this.RoadLayout.children[index3]["roadType"];
+                type2 = this.RoadLayout.children[index4]["roadType"];
+                let endPos3 = cc.v2(pos3.x, pos3.y - r - 1);
+                let endPos4 = cc.v2(pos4.x - r - 1, pos4.y);
+                if (type1 == 0) {
+                    this.drawLine(cc.v2(pos3.x, pos3.y + r), endPos3);
+                } else {
+                    this.checkType(type1, pos3, r);
+                }
+                if (type2 == 0) {
+                    this.drawLine(cc.v2(pos4.x + r, pos4.y), endPos4);
+                } else {
+                    this.checkType(type2, pos4, r);
+                }
+                this.drawArc(pos.x + r, pos.y + r, r, 1 * Math.PI, 1.5 * Math.PI, true);
+                break;
+            case 3:
+                let row5 = data.row + 1;
+                let index5 = row5 * cfg.roadChange[0].length + data.col;
+                let col5 = data.col - 1;
+                let index6 = data.row * cfg.roadChange[0].length + col5;
+                let pos5 = cc.v2(this.RoadLayout.children[index5].x, this.RoadLayout.children[index5].y);
+                let pos6 = cc.v2(this.RoadLayout.children[index6].x, this.RoadLayout.children[index6].y);
+                type1 = this.RoadLayout.children[index5]["roadType"];
+                type2 = this.RoadLayout.children[index6]["roadType"];
+                let endPos5 = cc.v2(pos5.x, pos5.y + r + 1);
+                let endPos6 = cc.v2(pos6.x + r + 1, pos6.y);
+                if (type1 == 0) {
+                    this.drawLine(cc.v2(pos5.x, pos5.y - r), endPos5);
+                } else {
+                    this.checkType(type1, pos5, r);
+                }
+                if (type2 == 0) {
+                    this.drawLine(cc.v2(pos6.x - r, pos6.y), endPos6);
+                } else {
+                    this.checkType(type2, pos6, r);
+                }
+                this.drawArc(pos.x - r, pos.y - r, r, 0, 0.5 * Math.PI, true);
+                break;
+            case 4:
+                let row7 = data.row - 1;
+                let index7 = row7 * cfg.roadChange[0].length + data.col;
+                let col7 = data.col - 1;
+                let index8 = data.row * cfg.roadChange[0].length + col7;
+                let pos7 = cc.v2(this.RoadLayout.children[index7].x, this.RoadLayout.children[index7].y);
+                let pos8 = cc.v2(this.RoadLayout.children[index8].x, this.RoadLayout.children[index8].y);
+                type1 = this.RoadLayout.children[index7]["roadType"];
+                type2 = this.RoadLayout.children[index8]["roadType"];
+                let endPos7 = cc.v2(pos7.x, pos7.y - r - 1);
+                let endPos8 = cc.v2(pos8.x + r + 1, pos8.y);
+                if (type1 == 0) {
+                    this.drawLine(cc.v2(pos7.x, pos7.y + r), endPos7);
+                } else {
+                    this.checkType(type1, pos7, r);
+                }
+                if (type2 == 0) {
+                    this.drawLine(cc.v2(pos8.x - r, pos8.y), endPos8);
+                } else {
+                    this.checkType(type2, pos8, r);
+                }
+
+                this.drawArc(pos.x - r, pos.y + r, r, 1.5 * Math.PI, 2 * Math.PI, true);
+                break;
+            default:
+                break;
+        }
+    }
+
+    checkType(type, pos, r) {
+        switch (type) {
+            case 1:
+                this.drawArc(pos.x + r, pos.y - r, r, 0.5 * Math.PI, 1 * Math.PI);
+                break;
+            case 2:
+                this.drawArc(pos.x + r, pos.y + r, r, 1 * Math.PI, 1.5 * Math.PI);
+                break;
+            case 3:
+                this.drawArc(pos.x - r, pos.y - r, r, 0, 0.5 * Math.PI);
+                break;
+            case 4:
+                this.drawArc(pos.x - r, pos.y + r, r, 1.5 * Math.PI, 2 * Math.PI);
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+   * 画线
+   * @param from 
+   * @param to 
+   * @returns 
+   */
+    public drawLine(from: cc.Vec2, to: cc.Vec2): void {
+        // cc.log("from", from)
+        // cc.log("to", to)
+        let dashNode: cc.Node = new cc.Node("dashNode");
+        dashNode.opacity = 0;
+        dashNode.addComponent(cc.Graphics);
+        this.RouteTips.addChild(dashNode);
+        dashNode.opacity = 255 * 0.7;
+        let g: cc.Graphics = dashNode.getComponent(cc.Graphics);
+        g.clear();
+        g.moveTo(from.x, from.y)
+        g.lineTo(to.x, to.y);
+        g.lineWidth = 8;
+        g.strokeColor = new cc.Color().fromHEX("#FF2828");
+        g.stroke();
+    }
+
+    /**
+     * 画弧线
+     * @param from 
+     * @param x 
+     * @param y 
+     * @param r 
+     * @param sAngle 
+     * @param eAngle 
+     */
+    public drawArc(x, y, r, sAngle, eAngle, isHide: boolean = false): void {
+        let dashNode: cc.Node = new cc.Node("dashNode");
+        dashNode.addComponent(cc.Graphics);
+        this.RouteTips.addChild(dashNode);
+        // dashNode.setPosition(x, y)
+        dashNode.opacity = 255 * 0.7;
+        let g: cc.Graphics = dashNode.getComponent(cc.Graphics);
+        g.clear();
+        g.arc(x, y, r, sAngle, eAngle, true);
+        g.lineWidth = 8;
+        g.strokeColor = new cc.Color().fromHEX("#FF2828");
+        g.stroke();
+
+        if (isHide) {
+            this.scheduleOnce(this.hideLine = () => {
+                cc.tween(this.RouteTips).to(0.5, { opacity: 0 }).call(() => {
+                    this.RouteTips.removeAllChildren();
+                }).start()
+            }, 1)
+        }
+
+
     }
 
     public showRedGoods() {
         let url = "subgame:./texture/" + gameManager.boxUrl
         let redHouse = this.node.getChildByName("OrnamentLayout").getChildByName("redHouse");
         if (!gameManager.redFullFoods) {
-            this.ScoreProgress.setProgressBar(cfg.goodsScore);
             MasterGlobal.data["correctCount"] += 1;
             simpleGameBridge.sendMessage("addscore:" + cfg.goodsScore);
             redHouse.getChildByName("markBg").active = false;
             this.showTips(redHouse, cfg.goodsScore)
+            this.ScoreProgress.setProgressBar(cfg.goodsScore);
         } else {
             redHouse.getChildByName("markBg").active = true;
         }
@@ -275,11 +466,11 @@ export default class GeneraItem extends BaseObject {
         let url = "subgame:./texture/" + gameManager.boxUrl
         let blueHouse = this.node.getChildByName("OrnamentLayout").getChildByName("blueHouse");
         if (!gameManager.blueFullFoods) {
-            this.ScoreProgress.setProgressBar(cfg.goodsScore);
             MasterGlobal.data["correctCount"] += 1;
             simpleGameBridge.sendMessage("addscore:" + cfg.goodsScore);
             blueHouse.getChildByName("markBg").active = false;
-            this.showTips(blueHouse, cfg.goodsScore)
+            this.showTips(blueHouse, cfg.goodsScore);
+            this.ScoreProgress.setProgressBar(cfg.goodsScore);
         } else {
             blueHouse.getChildByName("markBg").active = true;
         }
@@ -303,8 +494,9 @@ export default class GeneraItem extends BaseObject {
     }
 
     onDestroy() {
-        EventMng.off("showRedGoods", this.showRedGoods, this);
-        EventMng.off("showBlueGoods", this.showBlueGoods, this);
+        EventMng.off("showRedGoods");
+        EventMng.off("showBlueGoods");
+        EventMng.off("showWarn");
     }
 
     showWarn() {
@@ -327,7 +519,7 @@ export default class GeneraItem extends BaseObject {
     }
 
     clearInfo() {
-        this.ScoreProgress.clearProgressBar();
+        this.ScoreProgress.node.destroy();
         gameManager.redFullFoods = false;
         gameManager.blueFullFoods = false;
     }

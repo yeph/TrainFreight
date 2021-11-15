@@ -38,7 +38,7 @@ export default class MapChangeItme extends BaseObject {
             roadType: this.roadType
         }
         if (this.roadType == 0) return;
-        this.callBack && this.callBack(data);
+        this.callBack && this.callBack(data, false);
     }
 
     public onClickEvent() {
@@ -52,7 +52,7 @@ export default class MapChangeItme extends BaseObject {
             col: this._col,
             roadType: this.roadType
         }
-        this.callBack && this.callBack(data);
+        this.callBack && this.callBack(data, true);
     }
     /**
      * 当碰撞产生的时候调用
@@ -80,7 +80,6 @@ export default class MapChangeItme extends BaseObject {
         for (let i = 0; i < this.node.childrenCount; i++) {
             let name = this.node.children[i].name;
             if (this.node.children[i].active) {
-                cc.log("name", name)
                 switch (name) {
                     case "road_9":
                         this.roadType = 1;

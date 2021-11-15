@@ -31,6 +31,7 @@ export default class TrainCtrl extends BaseObject {
     public isGuide;
 
     public isFullFoods: boolean = false;
+    public isGuideFullFoods: boolean = false;
     constructor(id, roadLayout, index, row, col, callBack, ScoreProgress, isGuide: boolean = false) {
         super((ResUtils.getAsset<cc.Prefab>("subgame:./prefab/mapPrefab/TrainHead_" + id)));
         this.isGuide = isGuide;
@@ -52,6 +53,7 @@ export default class TrainCtrl extends BaseObject {
             this.type = 1;
             this.speed = gameManager.speedRed;
             this.isFullFoods = gameManager.redFullFoods;
+            this.isGuideFullFoods = gameManager.redGuideFullFoods;
         } else {
             this.type = 0;
         }
@@ -288,11 +290,12 @@ export default class TrainCtrl extends BaseObject {
         if (this.isGuide) { //引导状态 火车碰到 卸货区 和 装货区
             if (other.node.name.startsWith("goods_5")) {//出红货
                 if (this.type == 1) {
-                    if (this.isFullFoods) {
+                    if (this.isGuideFullFoods) {
                         // soundManager.playFx("resources:music/wupingfangxia");
-                        this.isFullFoods = false;
-                        gameManager.redFullFoods = false;
-                        gameManager.boxUrl = "train_red_carriage1";
+                        this.isGuideFullFoods = false;
+                        gameManager.redGuideFullFoods = false;
+                        gameManager.isShowRed = true;
+                        gameManager.boxGuideUrl = "train_red_carriage1";
                         // EventMng.emit("showGoods");
                         EventMng.emit("showGuideRedGoods");
                     }
@@ -301,11 +304,11 @@ export default class TrainCtrl extends BaseObject {
 
             if (other.node.name.startsWith("goods_3")) {//生成红色货物 引导状态
                 if (this.type == 1) {
-                    if (!this.isFullFoods) {
+                    if (!this.isGuideFullFoods) {
                         // soundManager.playFx("resources:music/wupingzhuangshang");
-                        this.isFullFoods = true;
-                        gameManager.redFullFoods = true;
-                        gameManager.boxUrl = "train_red_carriage";
+                        this.isGuideFullFoods = true;
+                        gameManager.redGuideFullFoods = true;
+                        gameManager.boxGuideUrl = "train_red_carriage";
                         cc.Tween.stopAllByTarget(other.node);
                         other.node.opacity = 0;
                         other.node.getComponent(cc.BoxCollider).enabled = false;
@@ -318,11 +321,11 @@ export default class TrainCtrl extends BaseObject {
 
             if (other.node.name.startsWith("goods_7")) {//生成红色货物 引导状态
                 if (this.type == 1) {
-                    if (!this.isFullFoods) {
+                    if (!this.isGuideFullFoods) {
                         // soundManager.playFx("resources:music/wupingzhuangshang");
-                        this.isFullFoods = true;
-                        gameManager.redFullFoods = true;
-                        gameManager.boxUrl = "train_red_carriage";
+                        this.isGuideFullFoods = true;
+                        gameManager.redGuideFullFoods = true;
+                        gameManager.boxGuideUrl = "train_red_carriage";
                         cc.Tween.stopAllByTarget(other.node);
                         other.node.opacity = 0;
                         other.node.getComponent(cc.BoxCollider).enabled = false;
@@ -363,9 +366,9 @@ export default class TrainCtrl extends BaseObject {
                     if (!this.isFullFoods) {
                         gameManager.errorCount = 0;
                         soundManager.playFx("resources:music/wupingzhuangshang");
-                        this.scheduleOnce(() => {
-                            soundManager.playFx("resources:music/wuwuwu");
-                        }, 0.5)
+                        // this.scheduleOnce(() => {
+                        //     soundManager.playFx("resources:music/wuwuwu");
+                        // }, 0.5)
                         this.isFullFoods = true;
                         gameManager.redFullFoods = true;
                         gameManager.boxUrl = "train_red_carriage";
@@ -390,9 +393,9 @@ export default class TrainCtrl extends BaseObject {
                     if (!this.isFullFoods) {
                         gameManager.errorCount = 0;
                         soundManager.playFx("resources:music/wupingzhuangshang");
-                        this.scheduleOnce(() => {
-                            soundManager.playFx("resources:music/wuwuwu");
-                        }, 0.5)
+                        // this.scheduleOnce(() => {
+                        //     soundManager.playFx("resources:music/wuwuwu");
+                        // }, 0.5)
                         this.isFullFoods = true;
                         gameManager.blueFullFoods = true;
                         gameManager.boxUrl = "train_bule_carriage";
@@ -453,9 +456,9 @@ export default class TrainCtrl extends BaseObject {
                 if (!gameManager.isPeng) {
                     if (gameManager.isShowGuide) return;
                     gameManager.isPeng = true;
-                    this.ScoreProgress.setProgressBar(-cfg.errorScore);
                     MasterGlobal.data["errorCount"] += 1;
                     simpleGameBridge.sendMessage("addscore:" + (-cfg.errorScore));
+                     this.ScoreProgress.setProgressBar(-cfg.errorScore);
                 }
             }
         }
@@ -468,9 +471,9 @@ export default class TrainCtrl extends BaseObject {
                 if (!gameManager.isPeng) {
                     if (gameManager.isShowGuide) return;
                     gameManager.isPeng = true;
-                    this.ScoreProgress.setProgressBar(-cfg.errorScore);
                     MasterGlobal.data["errorCount"] += 1;
                     simpleGameBridge.sendMessage("addscore:" + (-cfg.errorScore));
+                    this.ScoreProgress.setProgressBar(-cfg.errorScore);
                 }
 
                 if (!this.isGuide) {

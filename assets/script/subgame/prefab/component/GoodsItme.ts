@@ -12,10 +12,10 @@ export default class GoodsItme extends BaseObject {
     constructor(id, isGuide: boolean = false) {
         super((ResUtils.getAsset<cc.Prefab>("subgame:./prefab/goods/goods_" + id)));
         this.goodsType = id;
-        cc.log(id)
         this.isGuide = isGuide;
         EventMng.on("showGoods", this.showGoods, this);
         EventMng.on("showGuideGoods", this.showGuideGoods, this);
+        EventMng.on("hideGoods", this.hideGoods, this);
         if (!this.isGuide) {
             if (gameManager.isShowRed) {
                 if (this.goodsType == 4) {
@@ -65,7 +65,9 @@ export default class GoodsItme extends BaseObject {
         if (gameManager.isShowRed) { //显示红货
             if (this.goodsType == 3) { //红货
                 // this.node.active = true;
-                if (gameManager.blueFullFoods) return;
+                if (!this.isGuide) {
+                    if (gameManager.blueFullFoods) return;
+                }
                 this.node.getComponent(cc.BoxCollider).enabled = true;
                 this.node.opacity = 255;
 
@@ -101,12 +103,32 @@ export default class GoodsItme extends BaseObject {
         }
     }
 
+    hideGoods() {
+        if (gameManager.redFullFoods) {
+            if (this.goodsType == 3) { //红货
+                this.node.getComponent(cc.BoxCollider).enabled = false;
+                this.node.opacity = 0;
+            }
+        }
+        if (gameManager.blueFullFoods) {
+            if (this.goodsType == 4) { //蓝货
+                this.node.getComponent(cc.BoxCollider).enabled = false;
+                this.node.opacity = 0;
+            }
+        }
+        if (!gameManager.isShowRed) {
+            if (this.goodsType == 3) { //红货
+                this.node.getComponent(cc.BoxCollider).enabled = false;
+                this.node.opacity = 0;
+            }
+        }
+    }
+
     showGuideGoods() {
         cc.Tween.stopAllByTarget(this.node);
         if (gameManager.isShowRed) { //显示红货
             if (this.goodsType == 7) { //红货
                 // this.node.active = true;
-                if (gameManager.blueFullFoods) return;
                 this.node.getComponent(cc.BoxCollider).enabled = true;
                 this.node.opacity = 255;
                 this.node.scale = 0;
@@ -137,6 +159,7 @@ export default class GoodsItme extends BaseObject {
     onDestroy() {
         EventMng.off("showGoods", this.showGoods, this);
         EventMng.off("showGuideGoods", this.showGuideGoods, this);
+        EventMng.off("hideGoods", this.hideGoods, this);
     }
 
     update(dt) {

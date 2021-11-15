@@ -126,12 +126,15 @@ export default class UIGuide extends BaseObject {
         this.initMap();
         gameManager.speedGuide = 0;
         this.moveComFinger();
+        cc.log("------------------引导结束")
     }
 
     moveComFinger() {
+        cc.log("this.goodsCount", this.goodsCount)
         if (this.goodsCount == 0) {
             EventMng.emit("showGoods");
         } else if (this.goodsCount != 0 && this.goodsCount % 2 == 1) {
+            cc.log("moveComFinger-------------------------->>>>>")
             EventMng.emit("showGuideGoods");
         } else if (this.goodsCount != 0 && this.goodsCount % 2 == 0) {
             EventMng.emit("showGoods");
@@ -371,14 +374,10 @@ export default class UIGuide extends BaseObject {
     }
 
     public showGuideRedGoods() {
-        let url = "subgame:./texture/" + gameManager.boxUrl
-        if (!gameManager.redFullFoods) {
-            this.ScoreProgress.setProgressBar(cfg.goodsScore);
-            MasterGlobal.data["correctCount"] += 1;
-            simpleGameBridge.sendMessage("addscore:" + cfg.goodsScore);
-
+        let url = "subgame:./texture/" + gameManager.boxGuideUrl
+        if (!gameManager.redGuideFullFoods) {
             let redHouse = this.findNode("redHouse");
-            cc.log("redHouse-------------------", redHouse)
+            // cc.log("redHouse-------------------", redHouse)
             this.showTips(redHouse, cfg.goodsScore)
         }
 

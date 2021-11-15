@@ -3,9 +3,9 @@
     "name": "小火车运货",
     "version": "V137.1.0",
     "musicBg": "resources:music/bgm",
-    "timeout": 3000,
+    "timeout": 6000,
     "round": 0,
-    "maxLevel": 50,
+    "maxLevel": 51,
     "curLevel": 1,
     "nameConfig": {
       "nameBgColor": "#71D059",
@@ -26,7 +26,7 @@
     "guideMsg": [
       {
         "sound": "resources:music/guide0",
-        "content": "小朋友，点击橙色的铁轨可以切换轨\n道，引导小火车把相应颜色的货物运回\n仓库吧，要避免火车相撞哦！"
+        "content": "点击橙色的铁轨来改变火车前进方向，\n红色火车只能运输红色货物，蓝色火\n车只能运输蓝色货物，控制火车将货\n物运回仓库吧！"
       }
     ],
     "myGameConfig": {
@@ -294,17 +294,7 @@
     {
       "lv": 51,
       "levelTitle": "lv51",
-      "startDifficulty": 51
-    },
-    {
-      "lv": 39,
-      "levelTitle": "lv39",
-      "startDifficulty": 39
-    },
-    {
-      "lv": 52,
-      "levelTitle": "lv52",
-      "startDifficulty": 52
+      "startDifficulty": 40
     }
   ],
   "difficultyConfig": [
@@ -2726,7 +2716,7 @@
         [0,0,0,0,0,0,0,0],
         [0,0,4,0,0,1,0,0],
         [0,0,0,0,0,0,0,0],
-        [0,4,0,0,0,0,6,0],
+        [0,4,0,0,0,0,1,0],
         [0,0,0,0,0,0,0,0],
         [0,0,8,0,0,5,0,0],
         [0,0,0,0,0,0,0,0],

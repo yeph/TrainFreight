@@ -13,6 +13,8 @@ import { gameManager } from "./manager/gamemanager";
 import GeneraItem from "./manager/GeneraItem";
 import BaseComponent from "../../common/base/BaseComponent";
 import EventMng from "../../common/manager/EventMng";
+import UIFrame from "../../gameframe/logic/ui/prefab/UIFrame";
+import UIMng from "../../common/manager/UIMng";
 
 export default class UIGameLogic extends UITemplate {
 
@@ -38,9 +40,15 @@ export default class UIGameLogic extends UITemplate {
  */
 	public onPause(): void {
 		// if (this.comTimebar) this.comTimebar.node.getComponent(BaseComponent).enabled = false;
+		cc.log("gameManager.isShowRed 暂停", gameManager.isShowRed)
 		gameManager.isShowGuide = true;
 		gameManager.tempBlueFullFoods = gameManager.blueFullFoods;
 		gameManager.tempRedFullFoods = gameManager.redFullFoods;
+		gameManager.tempShow = gameManager.isShowRed;
+		gameManager.isShowRed = true;
+		gameManager.redGuideFullFoods = false;
+		gameManager.blueGuideFullFoods = false;
+		gameManager.boxGuideUrl = "train_red_carriage1";
 		gameManager.speedBlue = 0;
 		gameManager.speedRed = 0;
 		if (this.generaItem) this.generaItem.node.getComponent(BaseComponent).enabled = false;
@@ -53,12 +61,14 @@ export default class UIGameLogic extends UITemplate {
 		// if (this.comTimebar) this.comTimebar.node.getComponent(BaseComponent).enabled = true;
 		if (this.generaItem) this.generaItem.node.getComponent(BaseComponent).enabled = true;
 		gameManager.isShowGuide = false;
+		gameManager.isShowRed = gameManager.tempShow;
 		gameManager.blueFullFoods = gameManager.tempBlueFullFoods;
 		gameManager.redFullFoods = gameManager.tempRedFullFoods;
 		gameManager.speedBlue = cfg.speedBlue;
 		gameManager.speedRed = cfg.speedRed;
-
-
+		EventMng.emit("hideGoods");
+		EventMng.emit("showGoods");
+		cc.log("gameManager.isShowRed 激活", gameManager.isShowRed)
 	}
 	onLoad() {
 		gameManager.init();
@@ -88,16 +98,23 @@ export default class UIGameLogic extends UITemplate {
 	}
 
 	onDestroy(): void {
+		EventMng.off("gameIsOver");
 		this.node.removeFromParent();
 		this.node.destroy();
-		EventMng.off("gameIsOver", this.onGameOver);
 	}
 	public onGameOver() {
-		MasterGlobal.data["usedTime"] = cfg.timeout;
+		cc.log(" cfg.timeout", cfg.timeout)
+		// let time = 0;
+		// let uiFrame: UIFrame = UIMng.getInstance().getUI(UIFrame) as UIFrame;
+		// if (uiFrame && uiFrame._title && uiFrame._title._clock) {
+		// 	time = cfg.timeout - uiFrame._title._clock.timeout;
+		// }
+		// MasterGlobal.data["usedTime"] = cfg.timeout;
+		MasterGlobal.data["usedTime"] = this.calcDuration("usedTime");
 		MasterGlobal.data["nextLevel"] = gameManager.diffArray[gameManager.diffArray.length - 1];
 		MasterGlobal.data["diffList"] = gameManager.diffArray;
 		gameManager.diffArray = [];
-		this.onPause();
+		// this.onPause();
 		gameManager.gameState = false;
 		simpleGameBridge.sendMessage("gameover");
 	}
